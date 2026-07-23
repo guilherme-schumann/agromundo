@@ -38,6 +38,7 @@ e **SEO local**, para atrair e converter novos clientes.
 ### Destaques
 - 🎨 Design moderno com a identidade visual oficial da marca
 - 🖼️ **Carrossel de fotos reais** da loja no topo (imagens otimizadas)
+- 📸 **Seção do Instagram** com posts no estilo do feed que levam ao perfil
 - 📱 Totalmente responsivo (celular, tablet e desktop)
 - 💬 Botão flutuante de **WhatsApp** para contato imediato
 - 🗺️ Mapa da loja e botão "Como chegar" integrados ao Google Maps
