@@ -26,7 +26,7 @@ qualidade e um atendimento especializado que conhece de verdade cada necessidade
 | 🕘 **Horário** | Segunda a sexta: 9h–18h · Sábado: 9h–12h |
 
 ### O que oferecemos
-🐾 **Pet Shop** · 💊 **Medicamentos Veterinários** · 🌾 **Agropecuária** · 💐 **Plantas & Flores** · 🌱 **Jardinagem** · 🏡 **Paisagismo**
+🌾 **Agropecuária** · 💊 **Medicamentos Veterinários** · 💐 **Plantas & Flores** · 🌱 **Jardinagem** · 🏡 **Paisagismo**
 
 ---
 
@@ -37,6 +37,7 @@ e **SEO local**, para atrair e converter novos clientes.
 
 ### Destaques
 - 🎨 Design moderno com a identidade visual oficial da marca
+- 🖼️ **Carrossel de fotos reais** da loja no topo (imagens otimizadas)
 - 📱 Totalmente responsivo (celular, tablet e desktop)
 - 💬 Botão flutuante de **WhatsApp** para contato imediato
 - 🗺️ Mapa da loja e botão "Como chegar" integrados ao Google Maps
@@ -84,7 +85,7 @@ através do workflow em [`.github/workflows/deploy.yml`](.github/workflows/deplo
 
 ## 🗺️ Roadmap
 
-- [ ] Adicionar a foto da loja no hero (`assets/hero.jpg`)
+- [x] Fotos reais da loja no hero (carrossel)
 - [ ] Substituir os depoimentos de exemplo pelas avaliações reais do Google
 - [ ] Conectar um domínio próprio (ex.: `agromundoitajuba.com.br`)
 - [ ] **Automação de atendimento via WhatsApp** (próxima fase)

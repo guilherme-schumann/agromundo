@@ -1,30 +1,23 @@
 # Assets do site
 
-## Arquivos oficiais já aplicados
-- `logo-horizontal.svg` — logo usada no **header** (e no **rodapé** em branco, via filtro CSS).
+## Identidade visual (aplicada)
+- `logo-horizontal.svg` — logo do **header** (e do **rodapé** em branco, via filtro CSS).
 - `logo.svg` — logo vertical (símbolo + wordmark) — reserva.
-- `symbol.svg` — apenas o símbolo circular (usado como favicon SVG).
+- `symbol.svg` — símbolo circular (favicon SVG).
 - `favicon.ico` — favicon oficial da aba do navegador.
 
-## ⚠️ Falta adicionar: foto do Hero
-O bloco de imagem do hero espera o arquivo **`hero.jpg`** nesta pasta.
+## Fotos do carrossel (`photos/`)
+O carrossel do hero usa as imagens **otimizadas** `photos/foto-1.jpg` … `foto-10.jpg`
+(redimensionadas para no máx. 1500px e convertidas para JPEG — ~330 KB cada).
 
-1. Salve a foto da loja/viveiro (a que foi enviada no chat) como:
-   `assets/hero.jpg`
-2. Pronto — a foto aparece automaticamente no lugar do aviso.
+- Os **PNGs originais** (`photos/image *.png`) ficam só no seu computador; estão no
+  `.gitignore` para não pesarem no repositório/deploy.
+- Para trocar a ordem ou as fotos, basta substituir os arquivos `foto-N.jpg` (mesmo
+  nome) ou me avisar que eu regenero a partir de novas imagens.
 
-**Recomendações da foto:** horizontal ou vertical, boa iluminação, ~1200px ou mais
-no maior lado. O bloco usa recorte `object-fit: cover`, então a foto se ajusta
-sozinha. Se preferir outro nome/formato (ex.: `.png` / `.webp`), me avise que
-ajusto o `src` no `index.html`.
-
-## Outras imagens (opcionais)
-| Uso                     | Nome sugerido   | Recomendação                          |
-|-------------------------|-----------------|---------------------------------------|
-| Compartilhamento (OG)   | `og-image.jpg`  | 1200×630px — aparece ao enviar o link |
-| Foto seção "Sobre"      | `sobre.jpg`     | Equipe ou ambiente da loja            |
-
-Para ativar a imagem de compartilhamento, adicione no `<head>` do `index.html`:
+## Imagem de compartilhamento (opcional)
+Para uma prévia bonita ao enviar o link no WhatsApp/redes, adicione uma imagem
+`og-image.jpg` (1200×630px) e a linha abaixo no `<head>` do `index.html`:
 `<meta property="og:image" content="assets/og-image.jpg" />`
 
-> Dica: otimize as imagens (TinyPNG / Squoosh) antes de subir, para carregar rápido.
+> Dica: as fotos já foram otimizadas. Ao adicionar novas, use TinyPNG/Squoosh.

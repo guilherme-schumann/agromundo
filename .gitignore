@@ -7,6 +7,9 @@ Thumbs.db
 desktop.ini
 .DS_Store
 
+# Fotos originais pesadas (as versões otimizadas foto-*.jpg é que vão para o repo)
+assets/photos/image*.png
+
 # Logs e temporários
 *.log
 node_modules/

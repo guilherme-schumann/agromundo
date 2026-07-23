@@ -106,3 +106,108 @@
     sections.forEach((s) => spy.observe(s));
   }
 })();
+
+/* =========================================================
+   Carrossel do Hero
+   ========================================================= */
+(function () {
+  "use strict";
+
+  const root = document.getElementById("heroCarousel");
+  if (!root) return;
+
+  const track = root.querySelector(".hero-carousel__track");
+  const dotsWrap = root.querySelector(".hero-carousel__dots");
+  const prevBtn = root.querySelector(".hero-carousel__nav--prev");
+  const nextBtn = root.querySelector(".hero-carousel__nav--next");
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let slides = Array.from(root.querySelectorAll(".hero-slide"));
+  let index = 0;
+  let timer = null;
+  const INTERVAL = 5000;
+
+  // Remove slides cuja imagem não carregar; se nenhuma sobrar, mostra fallback
+  slides.forEach(function (slide) {
+    const img = slide.querySelector("img");
+    if (!img) return;
+    img.addEventListener("error", function () {
+      slide.remove();
+      slides = Array.from(root.querySelectorAll(".hero-slide"));
+      if (slides.length === 0) {
+        root.classList.add("is-empty");
+        stop();
+      } else {
+        if (index >= slides.length) index = 0;
+        buildDots();
+        update();
+      }
+    });
+  });
+
+  function buildDots() {
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = "";
+    slides.forEach(function (_, i) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-label", "Ir para a foto " + (i + 1));
+      b.addEventListener("click", function () { goTo(i, true); });
+      dotsWrap.appendChild(b);
+    });
+  }
+
+  function update() {
+    track.style.transform = "translateX(" + -index * 100 + "%)";
+    if (dotsWrap) {
+      Array.from(dotsWrap.children).forEach(function (dot, i) {
+        dot.setAttribute("aria-selected", i === index ? "true" : "false");
+      });
+    }
+  }
+
+  function goTo(i, userAction) {
+    index = (i + slides.length) % slides.length;
+    update();
+    if (userAction) restart();
+  }
+  function next(userAction) { goTo(index + 1, userAction); }
+  function prev(userAction) { goTo(index - 1, userAction); }
+
+  function start() {
+    if (reduced || slides.length <= 1) return;
+    stop();
+    timer = window.setInterval(function () { next(false); }, INTERVAL);
+  }
+  function stop() { if (timer) { window.clearInterval(timer); timer = null; } }
+  function restart() { stop(); start(); }
+
+  if (prevBtn) prevBtn.addEventListener("click", function () { prev(true); });
+  if (nextBtn) nextBtn.addEventListener("click", function () { next(true); });
+
+  // Pausa ao passar o mouse / focar (acessibilidade)
+  root.addEventListener("mouseenter", stop);
+  root.addEventListener("mouseleave", start);
+  root.addEventListener("focusin", stop);
+  root.addEventListener("focusout", start);
+
+  // Suporte a arrastar/deslizar (touch e mouse)
+  let startX = null;
+  root.addEventListener("touchstart", function (e) { startX = e.touches[0].clientX; }, { passive: true });
+  root.addEventListener("touchend", function (e) {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) { dx < 0 ? next(true) : prev(true); }
+    startX = null;
+  });
+
+  // Pausa quando a aba não está visível
+  document.addEventListener("visibilitychange", function () {
+    document.hidden ? stop() : start();
+  });
+
+  buildDots();
+  update();
+  start();
+})();

@@ -204,45 +204,52 @@ p { margin: 0 0 1rem; }
 .hero__chips li { display: inline-flex; align-items: center; gap: .5rem; font-size: .9rem; color: var(--muted); font-weight: 500; }
 .hero__chips .ico { color: var(--green-600); }
 
-/* Hero visual — bloco de foto real */
+/* Hero visual — carrossel de fotos */
 .hero__visual { position: relative; }
-.hero__photo {
-  position: relative; margin: 0; border-radius: var(--radius-lg); overflow: hidden;
+.hero-carousel {
+  position: relative; border-radius: var(--radius-lg); overflow: hidden;
   aspect-ratio: 4 / 4.4; box-shadow: var(--shadow-lg);
   background: linear-gradient(160deg, var(--green-600), var(--green-900));
   border: 6px solid #fff; outline: 1px solid var(--line);
 }
-.hero__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* Fallback caso a foto ainda não exista */
-.hero__photo.is-empty::after {
-  content: "📷  Adicione a foto da loja em assets/hero.jpg";
-  position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
-  color: rgba(255, 255, 255, .9); font-family: var(--font-head); font-weight: 600; font-size: .95rem; padding: 2rem;
+.hero-carousel__track { display: flex; height: 100%; transition: transform .6s var(--ease); will-change: transform; }
+.hero-slide { flex: 0 0 100%; margin: 0; height: 100%; min-width: 0; }
+.hero-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.hero-carousel__nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+  width: 42px; height: 42px; border-radius: 50%; border: none; cursor: pointer;
+  background: rgba(255, 255, 255, .9); color: var(--ink); display: grid; place-items: center;
+  box-shadow: var(--shadow-md); transition: background .18s var(--ease);
 }
-.hero__photo-tag {
-  position: absolute; left: 14px; bottom: 14px; z-index: 2;
-  display: inline-flex; align-items: center; gap: .6rem;
+.hero-carousel__nav:hover { background: #fff; }
+.hero-carousel__nav--prev { left: 12px; }
+.hero-carousel__nav--next { right: 12px; }
+
+.hero-carousel__dots { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 3; display: flex; gap: 7px; }
+.hero-carousel__dots button {
+  width: 9px; height: 9px; padding: 0; border: none; border-radius: 50%; cursor: pointer;
+  background: rgba(255, 255, 255, .55); transition: width .25s var(--ease), background .25s var(--ease);
+}
+.hero-carousel__dots button[aria-selected="true"] { width: 24px; border-radius: 5px; background: #fff; }
+
+.hero-carousel__tag {
+  position: absolute; left: 14px; bottom: 14px; z-index: 3;
+  display: inline-flex; align-items: center; gap: .45rem;
   background: rgba(255, 255, 255, .92); backdrop-filter: blur(6px);
-  padding: .55rem .85rem; border-radius: 14px; box-shadow: var(--shadow-md);
+  padding: .45rem .8rem; border-radius: 12px; box-shadow: var(--shadow-md);
+  font-family: var(--font-head); font-weight: 600; font-size: .82rem; color: var(--ink);
 }
-.hero__photo-badge {
-  width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center;
-  background: var(--green-100); font-size: 1.15rem;
-}
-.hero__photo-txt { display: flex; flex-direction: column; line-height: 1.2; font-size: .82rem; color: var(--muted); }
-.hero__photo-txt strong { font-family: var(--font-head); color: var(--ink); font-size: .98rem; }
 
-.chip-float {
-  position: absolute; z-index: 3; display: inline-flex; align-items: center; gap: .5rem;
-  background: #fff; color: var(--ink); font-family: var(--font-head); font-weight: 600; font-size: .9rem;
-  padding: .6rem .95rem; border-radius: var(--radius-pill); box-shadow: var(--shadow-md);
-  animation: float 5s ease-in-out infinite;
+/* Fallback quando as imagens ainda não foram adicionadas */
+.hero-carousel.is-empty::after {
+  content: "📷  Fotos em assets/photos/";
+  position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
+  color: rgba(255, 255, 255, .92); font-family: var(--font-head); font-weight: 600; font-size: .95rem; padding: 2rem; z-index: 2;
 }
-.chip-float__ico { font-size: 1.15rem; }
-.chip-float--1 { top: 5%; right: -4%; animation-delay: 0s; }
-.chip-float--3 { bottom: 16%; left: -6%; animation-delay: 1.2s; }
-
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.hero-carousel.is-empty .hero-carousel__nav,
+.hero-carousel.is-empty .hero-carousel__dots,
+.hero-carousel.is-empty .hero-carousel__tag { display: none; }
 
 .hero__wave { position: absolute; left: 0; right: 0; bottom: -1px; line-height: 0; }
 .hero__wave svg { width: 100%; height: clamp(40px, 6vw, 80px); }
@@ -473,10 +480,8 @@ p { margin: 0 0 1rem; }
   .hero__title { font-size: clamp(1.85rem, 7.5vw, 2.5rem); }
   .hl { white-space: normal; }
 
-  /* Logo e chips: ajustes para telas menores */
+  /* Logo: ajuste para telas menores */
   .brand__logo { height: 42px; }
-  .chip-float--1 { top: 3%; right: 2%; }
-  .chip-float--3 { bottom: 12%; left: 2%; }
 
   /* Menu mobile */
   .nav {
